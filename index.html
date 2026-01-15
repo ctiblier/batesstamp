@@ -343,7 +343,7 @@
                 <div class="control-group">
                     <label for="pdfFile">Choose PDF File:</label>
                     <input type="file" id="pdfFile" accept=".pdf">
-                    <p class="info-text">Your document never leaves your browser. All processing is done locally.</p>
+                    <p class="info-text">Your document never leaves your browser. All processing is done locally. Maximum file size: 100MB.</p>
                 </div>
             </div>
 
@@ -567,6 +567,19 @@
                 return;
             }
 
+            // Check file size
+            const file = fileInput.files[0];
+            const fileSizeMB = file.size / (1024 * 1024);
+            
+            if (fileSizeMB > 100) {
+                statusDiv.innerHTML = '<span class="error">File too large for browser processing. Maximum file size is 100MB. Your file is ' + fileSizeMB.toFixed(1) + 'MB.</span>';
+                return;
+            }
+            
+            if (fileSizeMB > 50) {
+                statusDiv.innerHTML = '<span style="color: #ff9800;">⚠️ Large file detected (' + fileSizeMB.toFixed(1) + 'MB). Processing may take longer than usual...</span>';
+            }
+
             // Check that at least one stamp type is selected
             if (!addBates && !addExhibit) {
                 statusDiv.innerHTML = '<span class="error">Please select at least one stamp type (Bates Numbers or Exhibit Stamp).</span>';
@@ -579,7 +592,6 @@
                 statusDiv.innerHTML = 'Processing PDF...';
 
                 // Read the PDF file
-                const file = fileInput.files[0];
                 const arrayBuffer = await file.arrayBuffer();
                 
                 // Load the PDF with pdf-lib
