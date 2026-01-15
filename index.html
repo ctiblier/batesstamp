@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bates Stamp - Free Document Stamping Tool</title>
+     <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca pub-9125889511214710" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #1a2332;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 3px solid #d4af37;
+        }
+
+        .nav-bar {
+            background: #2c5282;
+            padding: 10px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9em;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .support-link {
+            background: #d4af37;
+            color: #1a2332;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-block;
+        }
+
+        .support-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .section-title {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        input[type="file"],
+        input[type="number"],
+        input[type="text"],
+        input[type="color"],
+        select {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            width: 100%;
+            transition: border-color 0.3s;
+        }
+
+        input[type="file"]:focus,
+        input[type="number"]:focus,
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #2c5282;
+        }
+
+        input[type="color"] {
+            height: 45px;
+            cursor: pointer;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+
+        .button {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(30, 58, 95, 0.4);
+        }
+
+        .button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 6px;
+            min-height: 50px;
+            text-align: center;
+        }
+
+        .error {
+            color: #dc3545;
+            font-weight: 500;
+        }
+
+        .success {
+            color: #28a745;
+            font-weight: 500;
+        }
+
+        .info-text {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .color-preview {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9em;
+            background: #f8f9fa;
+        }
+
+        .ad-container {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px dashed #ddd;
+        }
+
+        .ad-label {
+            font-size: 0.75em;
+            color: #999;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-links {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+        }
+
+        .footer-links a {
+            color: #2c5282;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .two-column,
+            .three-column {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+
+            .nav-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px;
+            }
+
+            .nav-links {
+                width: 100%;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .support-link {
+                width: 100%;
+                text-align: center;
+            }
+
+            .ad-container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Bates Stamp</h1>
+            <p>Free, secure, client-side document stamping</p>
+        </div>
+
+        <div class="nav-bar">
+            <div class="nav-links">
+                <a href="https://pfscalculator.com" target="_blank">PFS Calculator</a>
+                <a href="#about">About</a>
+                <a href="#privacy">Privacy</a>
+            </div>
+            <a href="https://www.buymeacoffee.com/ctibs" target="_blank" class="support-link">☕ Buy Me a Coffee</a>
+        </div>
+
+        <div class="content">
+            <!-- File Upload Section -->
+            <div class="section">
+                <div class="section-title">1. Select Document</div>
+                <div class="control-group">
+                    <label for="pdfFile">Choose PDF File:</label>
+                    <input type="file" id="pdfFile" accept=".pdf">
+                    <p class="info-text">Your document never leaves your browser. All processing is done locally.</p>
+                </div>
+            </div>
+
+            <!-- TOP AD PLACEMENT -->
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-9125889511214710"
+                    data-ad-slot="8203590277"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <!-- Bates Number Settings -->
+            <div class="section">
+                <div class="section-title">2. Bates Number Settings</div>
+                
+                <div class="two-column">
+                    <div class="control-group">
+                        <label for="prefix">Prefix:</label>
+                        <input type="text" id="prefix" placeholder="e.g., PLAINTIFF_">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="suffix">Suffix:</label>
+                        <input type="text" id="suffix" placeholder="e.g., _CONF">
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div class="control-group">
+                        <label for="startNumber">Starting Number:</label>
+                        <input type="number" id="startNumber" value="1" min="1">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="padding">Number Padding:</label>
+                        <input type="number" id="padding" value="4" min="1" max="10">
+                        <p class="info-text">Number of digits (e.g., 4 = 0001)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exhibit Stamp Settings -->
+            <div class="section">
+                <div class="section-title">3. Exhibit Stamp (Optional)</div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="addExhibit" onchange="toggleExhibitOptions()">
+                    <label for="addExhibit">Add Exhibit Stamp</label>
+                </div>
+
+                <div id="exhibitOptions" style="display: none; margin-top: 15px;">
+                    <div class="two-column">
+                        <div class="control-group">
+                            <label for="exhibitLabel">Exhibit Label:</label>
+                            <input type="text" id="exhibitLabel" value="EXHIBIT" placeholder="EXHIBIT">
+                        </div>
+
+                        <div class="control-group">
+                            <label for="exhibitValue">Exhibit Value:</label>
+                            <input type="text" id="exhibitValue" value="A" placeholder="A, B, 1, 2, etc.">
+                        </div>
+                    </div>
+
+                    <div class="two-column">
+                        <div class="control-group">
+                            <label for="exhibitPages">Stamp Exhibit On:</label>
+                            <select id="exhibitPages">
+                                <option value="first">First Page Only</option>
+                                <option value="all">All Pages</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="exhibitPosition">Exhibit Position:</label>
+                            <select id="exhibitPosition">
+                                <option value="bottom-center">Bottom Center</option>
+                                <option value="bottom-right">Bottom Right</option>
+                                <option value="bottom-left">Bottom Left</option>
+                                <option value="top-center">Top Center</option>
+                                <option value="top-right">Top Right</option>
+                                <option value="top-left">Top Left</option>
+                                <option value="center">Page Center</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appearance Settings -->
+            <div class="section">
+                <div class="section-title">4. Appearance</div>
+                
+                <div class="three-column">
+                    <div class="control-group">
+                        <label for="position">Position:</label>
+                        <select id="position">
+                            <option value="bottom-right">Bottom Right</option>
+                            <option value="bottom-center">Bottom Center</option>
+                            <option value="bottom-left">Bottom Left</option>
+                            <option value="top-right">Top Right</option>
+                            <option value="top-center">Top Center</option>
+                            <option value="top-left">Top Left</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="fontSize">Font Size:</label>
+                        <input type="number" id="fontSize" value="10" min="6" max="24">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="textColor">Text Color:</label>
+                        <input type="color" id="textColor" value="#000000">
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div class="control-group">
+                        <label for="exhibitFontSize">Exhibit Font Size:</label>
+                        <input type="number" id="exhibitFontSize" value="24" min="12" max="48">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="exhibitColor">Exhibit Color:</label>
+                        <input type="color" id="exhibitColor" value="#000000">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Button -->
+            <button class="button" id="stampBtn" onclick="stampPDF()">
+                Stamp Document
+            </button>
+
+            <div class="status" id="status">
+                Configure your settings and click "Stamp Document" to begin
+            </div>
+
+            <!-- BOTTOM AD PLACEMENT -->
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-9125889511214710"
+                    data-ad-slot="3398109867"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+        <div class="footer">
+            <p><strong>© 2026 BatesStamp.com</strong></p>
+            <p style="margin-top: 10px;">Your documents are processed locally in your browser. We never see or store your files.</p>
+            
+            <div class="footer-links">
+                <strong>More Tools:</strong>
+                <a href="https://pfscalculator.com" target="_blank">PFS Calculator</a>
+            </div>
+            
+            <div style="margin-top: 15px;">
+                <a href="https://www.buymeacoffee.com/ctibs" target="_blank" class="support-link">☕ Support This Project</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleExhibitOptions() {
+            const checkbox = document.getElementById('addExhibit');
+            const options = document.getElementById('exhibitOptions');
+            options.style.display = checkbox.checked ? 'block' : 'none';
+        }
+
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16) / 255,
+                g: parseInt(result[2], 16) / 255,
+                b: parseInt(result[3], 16) / 255
+            } : { r: 0, g: 0, b: 0 };
+        }
+
+        async function stampPDF() {
+            const fileInput = document.getElementById('pdfFile');
+            const prefix = document.getElementById('prefix').value;
+            const startNumber = parseInt(document.getElementById('startNumber').value);
+            const suffix = document.getElementById('suffix').value;
+            const padding = parseInt(document.getElementById('padding').value);
+            const position = document.getElementById('position').value;
+            const fontSize = parseInt(document.getElementById('fontSize').value);
+            const textColor = document.getElementById('textColor').value;
+            const addExhibit = document.getElementById('addExhibit').checked;
+            const statusDiv = document.getElementById('status');
+            const stampBtn = document.getElementById('stampBtn');
+
+            // Validation
+            if (!fileInput.files || !fileInput.files[0]) {
+                statusDiv.innerHTML = '<span class="error">Please select a PDF file first.</span>';
+                return;
+            }
+
+            try {
+                // Disable button and show progress
+                stampBtn.disabled = true;
+                statusDiv.innerHTML = 'Processing PDF...';
+
+                // Read the PDF file
+                const file = fileInput.files[0];
+                const arrayBuffer = await file.arrayBuffer();
+                
+                // Load the PDF with pdf-lib
+                const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+                
+                // Get all pages
+                const pages = pdfDoc.getPages();
+                const totalPages = pages.length;
+                
+                statusDiv.innerHTML = `Processing ${totalPages} page(s)...`;
+
+                // Convert hex color to RGB
+                const rgb = hexToRgb(textColor);
+                const textColorRgb = PDFLib.rgb(rgb.r, rgb.g, rgb.b);
+
+                // Get exhibit settings if enabled
+                let exhibitRgb = textColorRgb;
+                if (addExhibit) {
+                    const exhibitColorHex = document.getElementById('exhibitColor').value;
+                    const exhibitRgbValues = hexToRgb(exhibitColorHex);
+                    exhibitRgb = PDFLib.rgb(exhibitRgbValues.r, exhibitRgbValues.g, exhibitRgbValues.b);
+                }
+
+                // Stamp each page
+                for (let i = 0; i < totalPages; i++) {
+                    const page = pages[i];
+                    const { width, height } = page.getSize();
+                    
+                    // Calculate the Bates number for this page
+                    const pageNumber = startNumber + i;
+                    const paddedNumber = pageNumber.toString().padStart(padding, '0');
+                    const batesNumber = `${prefix}${paddedNumber}${suffix}`;
+                    
+                    // Calculate position
+                    let x, y;
+                    const margin = 50;
+                    const batesWidth = batesNumber.length * fontSize * 0.6; // Approximate width
+                    
+                    switch(position) {
+                        case 'bottom-right':
+                            x = width - margin - batesWidth;
+                            y = margin;
+                            break;
+                        case 'bottom-center':
+                            x = (width - batesWidth) / 2;
+                            y = margin;
+                            break;
+                        case 'bottom-left':
+                            x = margin;
+                            y = margin;
+                            break;
+                        case 'top-right':
+                            x = width - margin - batesWidth;
+                            y = height - margin - fontSize;
+                            break;
+                        case 'top-center':
+                            x = (width - batesWidth) / 2;
+                            y = height - margin - fontSize;
+                            break;
+                        case 'top-left':
+                            x = margin;
+                            y = height - margin - fontSize;
+                            break;
+                    }
+                    
+                    // Draw the Bates number
+                    page.drawText(batesNumber, {
+                        x: x,
+                        y: y,
+                        size: fontSize,
+                        color: textColorRgb,
+                    });
+
+                    // Add exhibit stamp if enabled
+                    if (addExhibit) {
+                        const exhibitPages = document.getElementById('exhibitPages').value;
+                        const shouldStampExhibit = exhibitPages === 'all' || (exhibitPages === 'first' && i === 0);
+                        
+                        if (shouldStampExhibit) {
+                            const exhibitLabel = document.getElementById('exhibitLabel').value;
+                            const exhibitValue = document.getElementById('exhibitValue').value;
+                            const exhibitText = `${exhibitLabel} ${exhibitValue}`;
+                            const exhibitFontSize = parseInt(document.getElementById('exhibitFontSize').value);
+                            const exhibitWidth = exhibitText.length * exhibitFontSize * 0.6;
+                            const exhibitPosition = document.getElementById('exhibitPosition').value;
+                            
+                            let exhibitX, exhibitY;
+                            const exhibitMargin = 50;
+                            
+                            // Calculate exhibit position
+                            switch(exhibitPosition) {
+                                case 'bottom-center':
+                                    exhibitX = (width - exhibitWidth) / 2;
+                                    exhibitY = exhibitMargin + fontSize + 20;
+                                    break;
+                                case 'bottom-right':
+                                    exhibitX = width - exhibitMargin - exhibitWidth;
+                                    exhibitY = exhibitMargin + fontSize + 20;
+                                    break;
+                                case 'bottom-left':
+                                    exhibitX = exhibitMargin;
+                                    exhibitY = exhibitMargin + fontSize + 20;
+                                    break;
+                                case 'top-center':
+                                    exhibitX = (width - exhibitWidth) / 2;
+                                    exhibitY = height - exhibitMargin - exhibitFontSize;
+                                    break;
+                                case 'top-right':
+                                    exhibitX = width - exhibitMargin - exhibitWidth;
+                                    exhibitY = height - exhibitMargin - exhibitFontSize;
+                                    break;
+                                case 'top-left':
+                                    exhibitX = exhibitMargin;
+                                    exhibitY = height - exhibitMargin - exhibitFontSize;
+                                    break;
+                                case 'center':
+                                    exhibitX = (width - exhibitWidth) / 2;
+                                    exhibitY = (height - exhibitFontSize) / 2;
+                                    break;
+                            }
+                            
+                            page.drawText(exhibitText, {
+                                x: exhibitX,
+                                y: exhibitY,
+                                size: exhibitFontSize,
+                                color: exhibitRgb,
+                            });
+                        }
+                    }
+                }
+
+                // Save the modified PDF
+                const pdfBytes = await pdfDoc.save();
+                
+                // Create a download link
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                
+                // Generate filename
+                const originalName = file.name.replace('.pdf', '');
+                link.download = `${originalName}_stamped.pdf`;
+                link.click();
+                
+                // Clean up
+                URL.revokeObjectURL(url);
+                
+                statusDiv.innerHTML = `<span class="success">✓ Success! Stamped ${totalPages} page(s). Check your downloads.</span>`;
+                
+            } catch (error) {
+                console.error('Error:', error);
+                statusDiv.innerHTML = `<span class="error">Error: ${error.message}</span>`;
+            } finally {
+                stampBtn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
