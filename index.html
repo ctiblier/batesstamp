@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bates Stamp - Free Document Stamping Tool</title>
-     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca pub-9125889511214710" crossorigin="anonymous"></script>
+    <meta name="description" content="Free, secure, client-side Bates stamping and exhibit stamping tool. Number your legal documents without uploading to servers.">
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9125889511214710"
+     crossorigin="anonymous"></script>
+    
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
     <style>
         * {
@@ -343,46 +347,53 @@
                 </div>
             </div>
 
-            <!-- TOP AD PLACEMENT -->
+            <!-- AdSense Top Placement -->
             <div class="ad-container">
                 <div class="ad-label">Advertisement</div>
                 <ins class="adsbygoogle"
-                    style="display:block"
-                    data-ad-client="ca-pub-9125889511214710"
-                    data-ad-slot="8203590277"
-                    data-ad-format="auto"
-                    data-full-width-responsive="true"></ins>
+                     style="display:block"
+                     data-ad-client="ca-pub-9125889511214710"
+                     data-ad-slot="8203590277"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
                 <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
+                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>
 
             <!-- Bates Number Settings -->
             <div class="section">
-                <div class="section-title">2. Bates Number Settings</div>
+                <div class="section-title">2. Bates Number Settings (Optional)</div>
                 
-                <div class="two-column">
-                    <div class="control-group">
-                        <label for="prefix">Prefix:</label>
-                        <input type="text" id="prefix" placeholder="e.g., PLAINTIFF_">
-                    </div>
-
-                    <div class="control-group">
-                        <label for="suffix">Suffix:</label>
-                        <input type="text" id="suffix" placeholder="e.g., _CONF">
-                    </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="addBates" checked onchange="toggleBatesOptions()">
+                    <label for="addBates">Add Bates Numbers</label>
                 </div>
 
-                <div class="two-column">
-                    <div class="control-group">
-                        <label for="startNumber">Starting Number:</label>
-                        <input type="number" id="startNumber" value="1" min="1">
+                <div id="batesOptions" style="margin-top: 15px;">
+                    <div class="two-column">
+                        <div class="control-group">
+                            <label for="prefix">Prefix:</label>
+                            <input type="text" id="prefix" placeholder="e.g., PLAINTIFF_">
+                        </div>
+
+                        <div class="control-group">
+                            <label for="suffix">Suffix:</label>
+                            <input type="text" id="suffix" placeholder="e.g., _CONF">
+                        </div>
                     </div>
 
-                    <div class="control-group">
-                        <label for="padding">Number Padding:</label>
-                        <input type="number" id="padding" value="4" min="1" max="10">
-                        <p class="info-text">Number of digits (e.g., 4 = 0001)</p>
+                    <div class="two-column">
+                        <div class="control-group">
+                            <label for="startNumber">Starting Number:</label>
+                            <input type="number" id="startNumber" value="1" min="1">
+                        </div>
+
+                        <div class="control-group">
+                            <label for="padding">Number Padding:</label>
+                            <input type="number" id="padding" value="4" min="1" max="10">
+                            <p class="info-text">Number of digits (e.g., 4 = 0001)</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -484,19 +495,20 @@
                 Configure your settings and click "Stamp Document" to begin
             </div>
 
-            <!-- BOTTOM AD PLACEMENT -->
+            <!-- AdSense Bottom Placement -->
             <div class="ad-container">
                 <div class="ad-label">Advertisement</div>
                 <ins class="adsbygoogle"
-                    style="display:block"
-                    data-ad-client="ca-pub-9125889511214710"
-                    data-ad-slot="3398109867"
-                    data-ad-format="auto"
-                    data-full-width-responsive="true"></ins>
+                     style="display:block"
+                     data-ad-client="ca-pub-9125889511214710"
+                     data-ad-slot="3398109867"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
                 <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
+                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>
+        </div>
 
         <div class="footer">
             <p><strong>© 2026 BatesStamp.com</strong></p>
@@ -514,6 +526,12 @@
     </div>
 
     <script>
+        function toggleBatesOptions() {
+            const checkbox = document.getElementById('addBates');
+            const options = document.getElementById('batesOptions');
+            options.style.display = checkbox.checked ? 'block' : 'none';
+        }
+
         function toggleExhibitOptions() {
             const checkbox = document.getElementById('addExhibit');
             const options = document.getElementById('exhibitOptions');
@@ -531,6 +549,7 @@
 
         async function stampPDF() {
             const fileInput = document.getElementById('pdfFile');
+            const addBates = document.getElementById('addBates').checked;
             const prefix = document.getElementById('prefix').value;
             const startNumber = parseInt(document.getElementById('startNumber').value);
             const suffix = document.getElementById('suffix').value;
@@ -545,6 +564,12 @@
             // Validation
             if (!fileInput.files || !fileInput.files[0]) {
                 statusDiv.innerHTML = '<span class="error">Please select a PDF file first.</span>';
+                return;
+            }
+
+            // Check that at least one stamp type is selected
+            if (!addBates && !addExhibit) {
+                statusDiv.innerHTML = '<span class="error">Please select at least one stamp type (Bates Numbers or Exhibit Stamp).</span>';
                 return;
             }
 
@@ -566,12 +591,15 @@
                 
                 statusDiv.innerHTML = `Processing ${totalPages} page(s)...`;
 
-                // Convert hex color to RGB
-                const rgb = hexToRgb(textColor);
-                const textColorRgb = PDFLib.rgb(rgb.r, rgb.g, rgb.b);
+                // Convert hex color to RGB for Bates numbers
+                let textColorRgb;
+                if (addBates) {
+                    const rgb = hexToRgb(textColor);
+                    textColorRgb = PDFLib.rgb(rgb.r, rgb.g, rgb.b);
+                }
 
                 // Get exhibit settings if enabled
-                let exhibitRgb = textColorRgb;
+                let exhibitRgb;
                 if (addExhibit) {
                     const exhibitColorHex = document.getElementById('exhibitColor').value;
                     const exhibitRgbValues = hexToRgb(exhibitColorHex);
@@ -583,50 +611,53 @@
                     const page = pages[i];
                     const { width, height } = page.getSize();
                     
-                    // Calculate the Bates number for this page
-                    const pageNumber = startNumber + i;
-                    const paddedNumber = pageNumber.toString().padStart(padding, '0');
-                    const batesNumber = `${prefix}${paddedNumber}${suffix}`;
-                    
-                    // Calculate position
-                    let x, y;
-                    const margin = 50;
-                    const batesWidth = batesNumber.length * fontSize * 0.6; // Approximate width
-                    
-                    switch(position) {
-                        case 'bottom-right':
-                            x = width - margin - batesWidth;
-                            y = margin;
-                            break;
-                        case 'bottom-center':
-                            x = (width - batesWidth) / 2;
-                            y = margin;
-                            break;
-                        case 'bottom-left':
-                            x = margin;
-                            y = margin;
-                            break;
-                        case 'top-right':
-                            x = width - margin - batesWidth;
-                            y = height - margin - fontSize;
-                            break;
-                        case 'top-center':
-                            x = (width - batesWidth) / 2;
-                            y = height - margin - fontSize;
-                            break;
-                        case 'top-left':
-                            x = margin;
-                            y = height - margin - fontSize;
-                            break;
+                    // Add Bates number if enabled
+                    if (addBates) {
+                        // Calculate the Bates number for this page
+                        const pageNumber = startNumber + i;
+                        const paddedNumber = pageNumber.toString().padStart(padding, '0');
+                        const batesNumber = `${prefix}${paddedNumber}${suffix}`;
+                        
+                        // Calculate position
+                        let x, y;
+                        const margin = 50;
+                        const batesWidth = batesNumber.length * fontSize * 0.6; // Approximate width
+                        
+                        switch(position) {
+                            case 'bottom-right':
+                                x = width - margin - batesWidth;
+                                y = margin;
+                                break;
+                            case 'bottom-center':
+                                x = (width - batesWidth) / 2;
+                                y = margin;
+                                break;
+                            case 'bottom-left':
+                                x = margin;
+                                y = margin;
+                                break;
+                            case 'top-right':
+                                x = width - margin - batesWidth;
+                                y = height - margin - fontSize;
+                                break;
+                            case 'top-center':
+                                x = (width - batesWidth) / 2;
+                                y = height - margin - fontSize;
+                                break;
+                            case 'top-left':
+                                x = margin;
+                                y = height - margin - fontSize;
+                                break;
+                        }
+                        
+                        // Draw the Bates number
+                        page.drawText(batesNumber, {
+                            x: x,
+                            y: y,
+                            size: fontSize,
+                            color: textColorRgb,
+                        });
                     }
-                    
-                    // Draw the Bates number
-                    page.drawText(batesNumber, {
-                        x: x,
-                        y: y,
-                        size: fontSize,
-                        color: textColorRgb,
-                    });
 
                     // Add exhibit stamp if enabled
                     if (addExhibit) {
@@ -648,15 +679,15 @@
                             switch(exhibitPosition) {
                                 case 'bottom-center':
                                     exhibitX = (width - exhibitWidth) / 2;
-                                    exhibitY = exhibitMargin + fontSize + 20;
+                                    exhibitY = exhibitMargin + (addBates ? fontSize + 20 : 0);
                                     break;
                                 case 'bottom-right':
                                     exhibitX = width - exhibitMargin - exhibitWidth;
-                                    exhibitY = exhibitMargin + fontSize + 20;
+                                    exhibitY = exhibitMargin + (addBates ? fontSize + 20 : 0);
                                     break;
                                 case 'bottom-left':
                                     exhibitX = exhibitMargin;
-                                    exhibitY = exhibitMargin + fontSize + 20;
+                                    exhibitY = exhibitMargin + (addBates ? fontSize + 20 : 0);
                                     break;
                                 case 'top-center':
                                     exhibitX = (width - exhibitWidth) / 2;
