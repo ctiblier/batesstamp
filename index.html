@@ -336,6 +336,14 @@
             <a href="https://www.buymeacoffee.com/ctibs" target="_blank" class="support-link">☕ Buy Me a Coffee</a>
         </div>
 
+        <div style="background: #f8f9fa; padding: 12px; text-align: center; border-bottom: 1px solid #e0e0e0;">
+            <p id="counter" style="font-size: 0.95rem; color: #666; margin: 0;">
+                <span style="display: inline-block; background: white; padding: 6px 15px; border-radius: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    📄 Loading stats...
+                </span>
+            </p>
+        </div>
+
         <div class="content">
             <!-- File Upload Section -->
             <div class="section">
@@ -547,6 +555,37 @@
             } : { r: 0, g: 0, b: 0 };
         }
 
+        // Load document counter on page load
+        function loadCounter() {
+            fetch('https://api.countapi.xyz/get/batesstamp.com/documents')
+                .then(res => res.json())
+                .then(data => {
+                    const count = data.value || 0;
+                    document.getElementById('counter').innerHTML = 
+                        `<span style="display: inline-block; background: white; padding: 6px 15px; border-radius: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">📄 <strong>${count.toLocaleString()}</strong> documents stamped</span>`;
+                })
+                .catch(err => {
+                    console.error('Counter error:', err);
+                    document.getElementById('counter').innerHTML = 
+                        `<span style="display: inline-block; background: white; padding: 6px 15px; border-radius: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">📄 <strong>Thousands</strong> of documents stamped</span>`;
+                });
+        }
+
+        // Increment counter after successful stamp
+        function incrementCounter() {
+            fetch('https://api.countapi.xyz/hit/batesstamp.com/documents')
+                .then(res => res.json())
+                .then(data => {
+                    const count = data.value || 0;
+                    document.getElementById('counter').innerHTML = 
+                        `<span style="display: inline-block; background: white; padding: 6px 15px; border-radius: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">📄 <strong>${count.toLocaleString()}</strong> documents stamped</span>`;
+                })
+                .catch(err => console.error('Counter increment error:', err));
+        }
+
+        // Load counter when page loads
+        window.addEventListener('DOMContentLoaded', loadCounter);
+
         async function stampPDF() {
             const fileInput = document.getElementById('pdfFile');
             const addBates = document.getElementById('addBates').checked;
@@ -747,6 +786,9 @@
                 URL.revokeObjectURL(url);
                 
                 statusDiv.innerHTML = `<span class="success">✓ Success! Stamped ${totalPages} page(s). Check your downloads.</span>`;
+                
+                // Increment usage counter
+                incrementCounter();
                 
             } catch (error) {
                 console.error('Error:', error);
