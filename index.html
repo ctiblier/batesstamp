@@ -25,7 +25,7 @@
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://batesstamp.com">
     <meta property="twitter:title" content="Free Bates Stamping Tool - Online PDF Document Numbering">
-    <meta property="twitter:description" content="Add Bates numbers and exhibit stamps to legal PDFs for free. Secure, client-side processing.">
+    <meta property="twitter:description" content="Add Bates numbers, exhibit stamps, and confidentiality notices to legal PDFs for free. Secure, client-side processing.">
     
     <!-- Structured Data - JSON-LD -->
     <script type="application/ld+json">
@@ -45,11 +45,55 @@
       "featureList": [
         "Free Bates numbering",
         "Exhibit stamp creation",
+        "Confidentiality notice stamping",
         "Client-side processing",
         "No file uploads required",
-        "Customizable positioning and colors"
+        "Customizable positioning and colors",
+        "Adjustable transparency"
       ],
       "browserRequirements": "Requires JavaScript. Modern web browser."
+    }
+    </script>
+    
+    <!-- FAQ Schema for Featured Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Bates stamping?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bates stamping is the process of applying unique, sequential identification numbers to legal documents and evidence. Originally developed by the Bates Manufacturing Company, this system is the gold standard for organizing discovery documents, depositions, and trial exhibits in legal proceedings."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is BatesStamp.com free to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, BatesStamp.com is completely free with no subscription fees, credit card requirements, or trial periods. Professional Bates stamping is available to everyone including solo practitioners, large firms, and law students."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are my documents uploaded to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, your documents never leave your device. All PDF processing happens entirely in your browser using JavaScript. There are no server uploads, no cloud storage, and no privacy concerns."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I add confidentiality notices to documents?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, you can add confidentiality notices like 'CONFIDENTIAL', 'ATTORNEY EYES ONLY', or custom text to your documents. The tool supports Bates numbers, exhibit stamps, and confidentiality notices simultaneously."
+          }
+        }
+      ]
     }
     </script>
     
@@ -370,8 +414,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Bates Stamp</h1>
-            <p>Free, secure, client-side document stamping</p>
+            <h1>Free Bates Stamping Tool - Add Bates Numbers to PDFs Online</h1>
+            <p>Secure, client-side document numbering for legal professionals</p>
         </div>
 
         <div class="nav-bar">
@@ -599,8 +643,16 @@
                     <div class="control-group">
                         <label for="confidentialityColor">Confidentiality Color:</label>
                         <input type="color" id="confidentialityColor" value="#FF0000">
-                        <p class="info-text">Default: Red (commonly used for confidentiality notices)</p>
                     </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="textOpacity">Text Opacity (prevents covering content):</label>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <input type="range" id="textOpacity" min="50" max="100" value="90" style="flex: 1;" oninput="updateOpacityDisplay()">
+                        <span id="opacityDisplay" style="min-width: 45px; font-weight: 600;">90%</span>
+                    </div>
+                    <p class="info-text">90% recommended - stamps are visible but won't completely obscure text underneath. Lower = more transparent.</p>
                 </div>
             </div>
 
@@ -747,6 +799,12 @@
             customGroup.style.display = select.value === 'custom' ? 'block' : 'none';
         }
 
+        function updateOpacityDisplay() {
+            const slider = document.getElementById('textOpacity');
+            const display = document.getElementById('opacityDisplay');
+            display.textContent = slider.value + '%';
+        }
+
         function hexToRgb(hex) {
             const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
             return result ? {
@@ -813,6 +871,9 @@
                 
                 statusDiv.innerHTML = `Processing ${totalPages} page(s)...`;
 
+                // Get opacity setting (convert from 0-100 to 0-1)
+                const textOpacity = parseInt(document.getElementById('textOpacity').value) / 100;
+
                 // Convert hex color to RGB for Bates numbers
                 let textColorRgb;
                 if (addBates) {
@@ -850,7 +911,7 @@
                         
                         // Calculate position
                         let x, y;
-                        const margin = 50;
+                        const margin = 30; // Small margin keeps stamps at edge, away from document content
                         const batesWidth = batesNumber.length * fontSize * 0.6; // Approximate width
                         
                         switch(position) {
@@ -886,6 +947,7 @@
                             y: y,
                             size: fontSize,
                             color: textColorRgb,
+                            opacity: textOpacity,
                         });
                     }
 
@@ -903,7 +965,7 @@
                             const exhibitPosition = document.getElementById('exhibitPosition').value;
                             
                             let exhibitX, exhibitY;
-                            const exhibitMargin = 50;
+                            const exhibitMargin = 30; // Small margin keeps stamps at edge
                             
                             // Calculate exhibit position
                             switch(exhibitPosition) {
@@ -942,6 +1004,7 @@
                                 y: exhibitY,
                                 size: exhibitFontSize,
                                 color: exhibitRgb,
+                                opacity: textOpacity,
                             });
                         }
                     }
@@ -966,7 +1029,7 @@
                             const confidentialityPosition = document.getElementById('confidentialityPosition').value;
                             
                             let confidentialityX, confidentialityY;
-                            const confidentialityMargin = 50;
+                            const confidentialityMargin = 30; // Small margin keeps stamps at edge
                             
                             // Calculate confidentiality position
                             switch(confidentialityPosition) {
@@ -1005,6 +1068,7 @@
                                 y: confidentialityY,
                                 size: confidentialityFontSize,
                                 color: confidentialityRgb,
+                                opacity: textOpacity,
                             });
                         }
                     }
