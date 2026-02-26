@@ -249,7 +249,8 @@
         input[type="number"]:focus,
         input[type="text"]:focus,
         select:focus {
-            outline: none;
+            outline: 2px solid #2c5282;
+            outline-offset: 2px;
             border-color: #2c5282;
         }
 
@@ -448,17 +449,6 @@
                 Free tool to add Bates numbers, exhibit stamps, confidentiality notices to your PDF documents. All processing happens in your browser. Your files never leave your device.
             </p>
 
-            <!-- File Upload Section -->
-            <div class="section">
-                <div class="section-title">1. Select Document</div>
-                <div class="control-group">
-                    <label for="pdfFile">Choose PDF File:</label>
-                    <input type="file" id="pdfFile" accept=".pdf">
-                    <p class="info-text">Your document never leaves your browser. All processing is done locally. Maximum file size: 100MB.</p>
-                </div>
-            </div>
-
-
             <!-- AdSense Top Placement -->
             <div class="ad-container">
                 <div class="ad-label">Advertisement</div>
@@ -470,6 +460,16 @@
                 <script>
                      (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
+            </div>
+
+            <!-- File Upload Section -->
+            <div class="section">
+                <div class="section-title">1. Select Document</div>
+                <div class="control-group">
+                    <label for="pdfFile">Choose PDF File:</label>
+                    <input type="file" id="pdfFile" accept=".pdf">
+                    <p class="info-text">Your document never leaves your browser. All processing is done locally. Maximum file size: 100MB.</p>
+                </div>
             </div>
 
             <!-- Bates Number Settings -->
@@ -745,7 +745,7 @@
                         <li style="margin-bottom: 8px;">Works on all devices - desktop, tablet, or mobile</li>
                     </ul>
 
-                    <h3 id="privacy" style="color: #2c5282; margin-top: 35px; margin-bottom: 15px; font-size: 1.5rem;">Privacy & Security</h3>
+                    <h3 style="color: #2c5282; margin-top: 35px; margin-bottom: 15px; font-size: 1.5rem;">Privacy & Security</h3>
                     <p style="margin-bottom: 15px;">We take your privacy seriously. Unlike other online PDF tools, your documents are never uploaded to any server. All Bates stamping and exhibit stamping is performed locally in your web browser using JavaScript and the pdf-lib library. This means:</p>
                     <ul style="margin-left: 25px; margin-bottom: 20px; color: #555;">
                         <li style="margin-bottom: 8px;">Your sensitive legal documents remain completely private</li>
@@ -758,7 +758,7 @@
             </div>
         </div>
 
-        <div class="footer" id="privacy">
+        <div class="footer">
             <div style="margin-bottom: 25px;">
                 <h3 style="color: #1e3a5f; margin-bottom: 10px;">Privacy & Security</h3>
                 <p style="margin-bottom: 10px;"><strong>© 2026 BatesStamp.com</strong> - Free Bates Stamping Tool</p>
