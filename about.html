@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-13354133605"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-13354133605');
+    </script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <title>About | BatesStamp.com &mdash; Free Online Bates Stamping Tool</title>
+    <meta name="description" content="About BatesStamp.com - a free, secure browser-based tool for adding Bates numbers, exhibit stamps, and confidentiality notices to PDF documents.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://batesstamp.com/about.html">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9125889511214710" crossorigin="anonymous"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #1a2332;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 3px solid #d4af37;
+        }
+
+        .header h1 { font-size: 2em; margin-bottom: 10px; }
+        .header p { font-size: 1.1em; opacity: 0.9; }
+
+        .nav-bar {
+            background: #2c5282;
+            padding: 10px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9em;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .nav-links a:hover { background: rgba(255,255,255,0.1); }
+
+        .support-link {
+            background: #d4af37;
+            color: #1a2332;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-block;
+        }
+
+        .support-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212,175,55,0.3);
+        }
+
+        .page-content { padding: 40px; }
+
+        .page-content h2 {
+            color: #1e3a5f;
+            font-size: 1.6rem;
+            margin-top: 35px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .page-content h3 {
+            color: #2c5282;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
+
+        .page-content p { margin-bottom: 14px; color: #444; line-height: 1.8; }
+
+        .page-content ul { margin-left: 25px; margin-bottom: 14px; }
+
+        .page-content li { margin-bottom: 7px; color: #444; line-height: 1.7; }
+
+        .page-content a { color: #2c5282; }
+        .page-content a:hover { text-decoration: underline; }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 18px;
+            border-top: 3px solid #2c5282;
+        }
+
+        .feature-card h3 { margin-top: 0; color: #1e3a5f; font-size: 1rem; }
+        .feature-card p { font-size: 0.9rem; margin-bottom: 0; }
+
+        .mission-box {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+            color: white;
+            border-radius: 8px;
+            padding: 28px;
+            margin: 20px 0 30px;
+        }
+
+        .mission-box h2 {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+            margin-top: 0;
+        }
+
+        .mission-box p { color: rgba(255,255,255,0.9); }
+
+        .privacy-badge {
+            background: #e8f5e9;
+            border: 1px solid #a5d6a7;
+            border-radius: 8px;
+            padding: 18px 22px;
+            margin: 20px 0;
+        }
+
+        .privacy-badge p { color: #2e7d32; margin-bottom: 0; font-weight: 500; }
+
+        .contact-box {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 15px;
+        }
+
+        .coffee-btn {
+            display: inline-block;
+            background: #FFDD00;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 1rem;
+        }
+
+        .coffee-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,221,0,0.4);
+            color: #000;
+            text-decoration: none;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9em;
+            background: #f8f9fa;
+        }
+
+        .footer-links { margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd; }
+
+        .footer-links a {
+            color: #2c5282;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .page-content { padding: 20px; }
+            .header h1 { font-size: 1.6em; }
+            .nav-bar { flex-direction: column; align-items: flex-start; padding: 15px; }
+            .nav-links { width: 100%; flex-direction: column; gap: 10px; }
+            .support-link { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>About BatesStamp.com</h1>
+            <p>Free, Secure, Browser-Based Bates Stamping for Legal Professionals</p>
+        </div>
+
+        <div class="nav-bar">
+            <div class="nav-links">
+                <a href="https://pfscalculator.com" target="_blank" rel="noopener noreferrer">PFS Calculator</a>
+                <a href="/">Home</a>
+                <a href="/about.html">About</a>
+                <a href="/privacy-policy.html">Privacy Policy</a>
+                <a href="/terms-of-service.html">Terms of Service</a>
+            </div>
+            <a href="https://www.buymeacoffee.com/ctibs" target="_blank" rel="noopener noreferrer" class="support-link">&#9749; Buy Me a Coffee</a>
+        </div>
+
+        <div class="page-content">
+
+            <div class="mission-box">
+                <h2>Our Mission</h2>
+                <p>BatesStamp.com exists to give attorneys, paralegals, and legal professionals a fast, free, and completely private way to add Bates numbers and exhibit stamps to PDF documents &mdash; without uploading sensitive files to any server.</p>
+            </div>
+
+            <h2>About This Tool</h2>
+            <p>BatesStamp.com was built out of frustration with expensive, clunky document management software that charged subscription fees for what is ultimately a simple stamping task. Solo practitioners and smaller firms shouldn't have to pay for enterprise software just to number discovery documents.</p>
+
+            <p>The tool processes everything directly in your browser using JavaScript. Your PDFs never leave your device &mdash; there is no backend, no cloud storage, and no server to breach.</p>
+
+            <div class="privacy-badge">
+                <p>&#128274; Your documents are processed 100% locally. No files are uploaded. No data is stored. Works offline once the page loads.</p>
+            </div>
+
+            <h2>What You Can Do</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Bates Numbering</h3>
+                    <p>Add sequential Bates numbers with custom prefix, starting number, padding, and position.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Exhibit Stamps</h3>
+                    <p>Add exhibit labels (Plaintiff's Exhibit A, Defendant's Exhibit 1, etc.) to your documents.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Confidentiality Notices</h3>
+                    <p>Stamp CONFIDENTIAL, ATTORNEY EYES ONLY, or custom text on every page.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Full Customization</h3>
+                    <p>Choose font size, color, position, and opacity for each stamp type independently.</p>
+                </div>
+            </div>
+
+            <h2>Who This Is For</h2>
+            <ul>
+                <li>Attorneys preparing discovery productions</li>
+                <li>Paralegals organizing deposition exhibits</li>
+                <li>Litigation support teams numbering trial exhibits</li>
+                <li>Solo practitioners without access to expensive document management software</li>
+                <li>Law students and legal aid organizations</li>
+                <li>Anyone who needs to number PDF documents professionally</li>
+            </ul>
+
+            <h2>Other Free Legal Tools</h2>
+            <p>We also maintain <a href="https://pfscalculator.com" target="_blank" rel="noopener noreferrer">PFSCalculator.com</a>, a free calculator for Florida attorneys to compute Proposal for Settlement thresholds under Florida Statute &sect;&nbsp;768.79. Like BatesStamp, it's completely free and requires no login.</p>
+
+            <h2 id="contact">Contact Us</h2>
+            <div class="contact-box">
+                <p>Have a question, found a bug, or want to suggest a feature? We'd love to hear from you.</p>
+                <p>
+                    <strong>Email:</strong> <a href="mailto:contact@batesstamp.com">contact@batesstamp.com</a>
+                </p>
+                <p>We aim to respond within 2&ndash;3 business days.</p>
+            </div>
+
+            <h2>Support This Project</h2>
+            <p>BatesStamp.com is and always will be free. If it saves you time in your practice, consider supporting the project:</p>
+            <p style="text-align: center; margin-top: 20px;">
+                <a href="https://www.buymeacoffee.com/ctibs" target="_blank" rel="noopener noreferrer" class="coffee-btn">&#9749; Buy Me a Coffee</a>
+            </p>
+
+        </div>
+
+        <div class="footer">
+            <div class="footer-links">
+                <strong>Legal:</strong>
+                <a href="/privacy-policy.html">Privacy Policy</a>
+                <a href="/terms-of-service.html">Terms of Service</a>
+                <a href="/about.html">About &amp; Contact</a>
+            </div>
+            <div class="footer-links" style="margin-top: 10px;">
+                <strong>Tools:</strong>
+                <a href="/">Bates Stamp Tool</a>
+                <a href="https://pfscalculator.com" target="_blank" rel="noopener noreferrer">Florida PFS Calculator</a>
+            </div>
+            <p style="margin-top: 15px;">&copy; 2026 BatesStamp.com &mdash; Free Bates Stamping Tool</p>
+        </div>
+    </div>
+</body>
+</html>
