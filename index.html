@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-13354133605"></script>
     <script>
@@ -13,34 +13,36 @@
       gtag('config', 'G-13354133605');
     </script>
 
+    <!-- Umami Analytics -->
+    <script defer src="https://umami.ctibs.app/script.js" data-website-id="b5a8938f-fd00-486c-bf17-0352963407f3"></script>
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    
+
     <!-- SEO Meta Tags -->
     <title>Free Bates Stamping Tool | Online PDF Document Numbering | BatesStamp.com</title>
     <meta name="description" content="Free tool to add Bates numbers, exhibit stamps, and confidentiality notices to PDF documents. All processing happens in your browser - your files never leave your device. Perfect for attorneys and paralegals.">
     <meta name="keywords" content="bates stamping, bates numbering, free bates stamp, exhibit stamp, legal document numbering, pdf numbering tool, bates stamp pdf, online bates numbering">
     <meta name="author" content="BatesStamp.com">
     <meta name="robots" content="index, follow">
-    
+
     <!-- Canonical URL -->
     <link rel="canonical" href="https://batesstamp.com">
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://batesstamp.com">
     <meta property="og:title" content="Free Bates Stamping Tool - Online PDF Document Numbering">
-    <meta property="og:description" content="Free tool to add Bates numbers, exhibit stamps, and confidentiality notices to PDFs. Secure, client-side processing. Perfect for attorneys, paralegals, and legal professionals.">
-    <meta property="og:site_name" content="BatesStamp.com">
-    
+    <meta property="og:description" content="Add Bates numbers, exhibit stamps, and confidentiality notices to legal PDFs for free. Secure, client-side processing - your files never leave your device.">
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://batesstamp.com">
     <meta property="twitter:title" content="Free Bates Stamping Tool - Online PDF Document Numbering">
     <meta property="twitter:description" content="Add Bates numbers, exhibit stamps, and confidentiality notices to legal PDFs for free. Secure, client-side processing.">
-    
+
     <!-- Structured Data - JSON-LD -->
     <script type="application/ld+json">
     {
@@ -68,7 +70,7 @@
       "browserRequirements": "Requires JavaScript. Modern web browser."
     }
     </script>
-    
+
     <!-- FAQ Schema for Featured Snippets -->
     <script type="application/ld+json">
     {
@@ -110,342 +112,40 @@
       ]
     }
     </script>
-    
+
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9125889511214710"
      crossorigin="anonymous"></script>
-    
-    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #1a2332;
-            min-height: 100vh;
-            padding: 20px;
-        }
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"
+            integrity="sha384-weMABwrltA6jWR8DDe9Jp5blk+tZQh7ugpCsF3JwSA53WZM9/14PjS5LAJNHNjAI"
+            crossorigin="anonymous"></script>
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-            border-bottom: 3px solid #d4af37;
-        }
-
-        .nav-bar {
-            background: #2c5282;
-            padding: 10px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 0.9em;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: background 0.3s;
-        }
-
-        .nav-links a:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .support-link {
-            background: #d4af37;
-            color: #1a2332;
-            padding: 8px 16px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9em;
-            transition: transform 0.2s, box-shadow 0.2s;
-            display: inline-block;
-        }
-
-        .support-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-
-        .content {
-            padding: 40px;
-        }
-
-        .section {
-            margin-bottom: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 8px;
-        }
-
-        .section-title {
-            font-size: 1.3em;
-            color: #333;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .control-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #555;
-        }
-
-        input[type="file"],
-        input[type="number"],
-        input[type="text"],
-        input[type="color"],
-        select {
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
-            width: 100%;
-            transition: border-color 0.3s;
-        }
-
-        input[type="file"]:focus,
-        input[type="number"]:focus,
-        input[type="text"]:focus,
-        select:focus {
-            outline: 2px solid #2c5282;
-            outline-offset: 2px;
-            border-color: #2c5282;
-        }
-
-        input[type="color"] {
-            height: 45px;
-            cursor: pointer;
-        }
-
-        .two-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .three-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 15px;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            margin-top: 10px;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            width: auto;
-            margin-right: 10px;
-            cursor: pointer;
-        }
-
-        .checkbox-group label {
-            margin-bottom: 0;
-            cursor: pointer;
-        }
-
-        .button {
-            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
-            color: white;
-            padding: 15px 40px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            width: 100%;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(30, 58, 95, 0.4);
-        }
-
-        .button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .status {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #e9ecef;
-            border-radius: 6px;
-            min-height: 50px;
-            text-align: center;
-        }
-
-        .error {
-            color: #dc3545;
-            font-weight: 500;
-        }
-
-        .success {
-            color: #28a745;
-            font-weight: 500;
-        }
-
-        .info-text {
-            font-size: 0.9em;
-            color: #666;
-            margin-top: 5px;
-        }
-
-        .color-preview {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            border: 2px solid #ddd;
-            border-radius: 4px;
-            margin-left: 10px;
-            vertical-align: middle;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 20px;
-            color: #666;
-            font-size: 0.9em;
-            background: #f8f9fa;
-        }
-
-        .ad-container {
-            background: #f8f9fa;
-            padding: 20px;
-            text-align: center;
-            border-radius: 8px;
-            margin: 20px 0;
-            border: 1px dashed #ddd;
-        }
-
-        .ad-label {
-            font-size: 0.75em;
-            color: #999;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .footer-links {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #ddd;
-        }
-
-        .footer-links a {
-            color: #2c5282;
-            text-decoration: none;
-            margin: 0 10px;
-            font-weight: 500;
-        }
-
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 768px) {
-            .two-column,
-            .three-column {
-                grid-template-columns: 1fr;
-            }
-            
-            .header h1 {
-                font-size: 2em;
-            }
-            
-            .content {
-                padding: 20px;
-            }
-
-            .nav-bar {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 15px;
-            }
-
-            .nav-links {
-                width: 100%;
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .support-link {
-                width: 100%;
-                text-align: center;
-            }
-
-            .ad-container {
-                padding: 10px;
-            }
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <div class="container">
-        <div class="header">
+        <header>
             <h1>Free Bates Stamping Tool - Add Bates Numbers to PDFs Online</h1>
             <p>Secure, client-side document numbering for legal professionals</p>
-        </div>
+        </header>
 
-        <div class="nav-bar">
+        <nav aria-label="Main navigation">
             <div class="nav-links">
                 <a href="https://pfscalculator.com" target="_blank" rel="noopener noreferrer">PFS Calculator</a>
                 <a href="/about.html">About</a>
                 <a href="/privacy-policy.html">Privacy Policy</a>
                 <a href="/terms-of-service.html">Terms</a>
             </div>
-            <a href="https://www.buymeacoffee.com/ctibs" target="_blank" rel="noopener noreferrer" class="support-link">&#9749; Buy Me a Coffee</a>
-        </div>
+        </nav>
 
-        <div class="content">
+        <main id="main-content">
             <!-- Brief Intro -->
-            <p style="text-align: center; font-size: 1.1rem; color: #555; margin-bottom: 30px; line-height: 1.6;">
+            <p class="intro-text">
                 Free tool to add Bates numbers, exhibit stamps, confidentiality notices to your PDF documents. All processing happens in your browser. Your files never leave your device.
             </p>
 
@@ -464,7 +164,7 @@
 
             <!-- File Upload Section -->
             <div class="section">
-                <div class="section-title">1. Select Document</div>
+                <h2 class="section-title">1. Select Document</h2>
                 <div class="control-group">
                     <label for="pdfFile">Choose PDF File:</label>
                     <input type="file" id="pdfFile" accept=".pdf">
@@ -474,8 +174,8 @@
 
             <!-- Bates Number Settings -->
             <div class="section">
-                <div class="section-title">2. Bates Number Settings (Optional)</div>
-                
+                <h2 class="section-title">2. Bates Number Settings (Optional)</h2>
+
                 <div class="checkbox-group">
                     <input type="checkbox" id="addBates" checked onchange="toggleBatesOptions()">
                     <label for="addBates">Add Bates Numbers</label>
@@ -511,8 +211,8 @@
 
             <!-- Exhibit Stamp Settings -->
             <div class="section">
-                <div class="section-title">3. Exhibit Stamp (Optional)</div>
-                
+                <h2 class="section-title">3. Exhibit Stamp (Optional)</h2>
+
                 <div class="checkbox-group">
                     <input type="checkbox" id="addExhibit" onchange="toggleExhibitOptions()">
                     <label for="addExhibit">Add Exhibit Stamp</label>
@@ -558,8 +258,8 @@
 
             <!-- Confidentiality Notice Settings -->
             <div class="section">
-                <div class="section-title">4. Confidentiality Notice (Optional)</div>
-                
+                <h2 class="section-title">4. Confidentiality Notice (Optional)</h2>
+
                 <div class="checkbox-group">
                     <input type="checkbox" id="addConfidentiality" onchange="toggleConfidentialityOptions()">
                     <label for="addConfidentiality">Add Confidentiality Notice</label>
@@ -610,11 +310,11 @@
 
             <!-- Appearance Settings -->
             <div class="section">
-                <div class="section-title">5. Appearance</div>
-                
-                <div class="three-column">
+                <h2 class="section-title">5. Appearance</h2>
+
+                <div class="three-column" id="batesAppearance">
                     <div class="control-group">
-                        <label for="position">Position:</label>
+                        <label for="position">Bates Number Position:</label>
                         <select id="position">
                             <option value="bottom-right">Bottom Right</option>
                             <option value="bottom-center">Bottom Center</option>
@@ -626,17 +326,17 @@
                     </div>
 
                     <div class="control-group">
-                        <label for="fontSize">Font Size:</label>
+                        <label for="fontSize">Bates Font Size:</label>
                         <input type="number" id="fontSize" value="10" min="6" max="24">
                     </div>
 
                     <div class="control-group">
-                        <label for="textColor">Text Color:</label>
+                        <label for="textColor">Bates Text Color:</label>
                         <input type="color" id="textColor" value="#000000">
                     </div>
                 </div>
 
-                <div class="two-column">
+                <div class="two-column" id="exhibitAppearance" style="display: none;">
                     <div class="control-group">
                         <label for="exhibitFontSize">Exhibit Font Size:</label>
                         <input type="number" id="exhibitFontSize" value="24" min="12" max="48">
@@ -648,7 +348,7 @@
                     </div>
                 </div>
 
-                <div class="two-column">
+                <div class="two-column" id="confidentialityAppearance" style="display: none;">
                     <div class="control-group">
                         <label for="confidentialityFontSize">Confidentiality Font Size:</label>
                         <input type="number" id="confidentialityFontSize" value="16" min="10" max="36">
@@ -662,9 +362,9 @@
 
                 <div class="control-group">
                     <label for="textOpacity">Text Opacity (prevents covering content):</label>
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <input type="range" id="textOpacity" min="50" max="100" value="90" style="flex: 1;" oninput="updateOpacityDisplay()">
-                        <span id="opacityDisplay" style="min-width: 45px; font-weight: 600;">90%</span>
+                    <div class="opacity-control">
+                        <input type="range" id="textOpacity" min="50" max="100" value="90" aria-valuenow="90" aria-valuemin="50" aria-valuemax="100" oninput="updateOpacityDisplay()">
+                        <span id="opacityDisplay" aria-live="polite">90%</span>
                     </div>
                     <p class="info-text">90% recommended - stamps are visible but won't completely obscure text underneath. Lower = more transparent.</p>
                 </div>
@@ -675,7 +375,7 @@
                 Stamp Document
             </button>
 
-            <div class="status" id="status">
+            <div class="status" id="status" role="status" aria-live="polite">
                 Configure your settings and click "Stamp Document" to begin
             </div>
 
@@ -693,81 +393,81 @@
             </div>
 
             <!-- About Section - SEO Content -->
-            <div id="about" style="background: #f8f9fa; padding: 40px 30px; border-radius: 8px; margin-top: 40px; line-height: 1.8;">
-                <h2 style="color: #1e3a5f; margin-bottom: 20px; font-size: 2rem; text-align: center;">About Bates Stamping</h2>
-                
-                <div style="max-width: 900px; margin: 0 auto;">
-                    <h3 style="color: #2c5282; margin-top: 30px; margin-bottom: 15px; font-size: 1.5rem;">What is Bates Stamping?</h3>
-                    <p style="margin-bottom: 15px;">Bates stamping (also called Bates numbering) is the process of applying unique, sequential identification numbers to legal documents and evidence. Originally developed by the Bates Manufacturing Company in the late 1800s, this system has become the gold standard for organizing discovery documents, depositions, and trial exhibits in legal proceedings.</p>
-                    
-                    <h3 style="color: #2c5282; margin-top: 30px; margin-bottom: 15px; font-size: 1.5rem;">Why Use Our Free Bates Stamping Tool?</h3>
-                    <p style="margin-bottom: 20px;">Our tool provides professional-grade Bates stamping without the cost of expensive legal software. Unlike desktop applications that require installation or cloud services that upload your sensitive documents, our tool processes everything locally in your browser for maximum privacy and security.</p>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 25px 0;">
-                        <div style="background: white; padding: 20px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                            <h4 style="color: #2c5282; margin-bottom: 10px; font-size: 1.1rem;">🔒 Privacy First</h4>
-                            <p style="margin: 0; font-size: 0.95rem; color: #555;">Your documents never leave your device. All PDF processing happens entirely in your browser using JavaScript - no server uploads, no cloud storage, no privacy concerns.</p>
+            <section id="about" class="seo-content">
+                <h2>About Bates Stamping</h2>
+
+                <div class="seo-content-inner">
+                    <h3>What is Bates Stamping?</h3>
+                    <p>Bates stamping (also called Bates numbering) is the process of applying unique, sequential identification numbers to legal documents and evidence. Originally developed by the Bates Manufacturing Company in the late 1800s, this system has become the gold standard for organizing discovery documents, depositions, and trial exhibits in legal proceedings.</p>
+
+                    <h3>Why Use Our Free Bates Stamping Tool?</h3>
+                    <p>Our tool provides professional-grade Bates stamping without the cost of expensive legal software. Unlike desktop applications that require installation or cloud services that upload your sensitive documents, our tool processes everything locally in your browser for maximum privacy and security.</p>
+
+                    <div class="feature-highlights">
+                        <div class="feature-highlight-card">
+                            <h4>Privacy First</h4>
+                            <p>Your documents never leave your device. All PDF processing happens entirely in your browser using JavaScript - no server uploads, no cloud storage, no privacy concerns.</p>
                         </div>
-                        <div style="background: white; padding: 20px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                            <h4 style="color: #2c5282; margin-bottom: 10px; font-size: 1.1rem;">💰 100% Free</h4>
-                            <p style="margin: 0; font-size: 0.95rem; color: #555;">No subscription fees, no credit card required, no trial periods. Professional Bates stamping available to everyone - solo practitioners, large firms, and law students alike.</p>
+                        <div class="feature-highlight-card">
+                            <h4>100% Free</h4>
+                            <p>No subscription fees, no credit card required, no trial periods. Professional Bates stamping available to everyone - solo practitioners, large firms, and law students alike.</p>
                         </div>
-                        <div style="background: white; padding: 20px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                            <h4 style="color: #2c5282; margin-bottom: 10px; font-size: 1.1rem;">⚡ Instant Results</h4>
-                            <p style="margin: 0; font-size: 0.95rem; color: #555;">No waiting for uploads or processing queues. Stamp your documents and download immediately. Process documents up to 100MB in size.</p>
+                        <div class="feature-highlight-card">
+                            <h4>Instant Results</h4>
+                            <p>No waiting for uploads or processing queues. Stamp your documents and download immediately. Process documents up to 100MB in size.</p>
                         </div>
-                        <div style="background: white; padding: 20px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                            <h4 style="color: #2c5282; margin-bottom: 10px; font-size: 1.1rem;">🎨 Fully Customizable</h4>
-                            <p style="margin: 0; font-size: 0.95rem; color: #555;">Custom prefixes, suffixes, starting numbers, colors, positions, and fonts. Add exhibit stamps alongside Bates numbers. Professional results every time.</p>
+                        <div class="feature-highlight-card">
+                            <h4>Fully Customizable</h4>
+                            <p>Custom prefixes, suffixes, starting numbers, colors, positions, and fonts. Add exhibit stamps alongside Bates numbers. Professional results every time.</p>
                         </div>
                     </div>
 
-                    <h3 style="color: #2c5282; margin-top: 35px; margin-bottom: 15px; font-size: 1.5rem;">Perfect For Legal Professionals</h3>
-                    <ul style="margin-left: 25px; margin-bottom: 20px; color: #555;">
-                        <li style="margin-bottom: 10px;"><strong>Litigation Attorneys:</strong> Organize discovery documents, depositions, and trial exhibits with consistent Bates numbering</li>
-                        <li style="margin-bottom: 10px;"><strong>Paralegals:</strong> Quickly prepare document productions and respond to discovery requests</li>
-                        <li style="margin-bottom: 10px;"><strong>Legal Assistants:</strong> Manage case files and prepare exhibits for court filings</li>
-                        <li style="margin-bottom: 10px;"><strong>Solo Practitioners:</strong> Access enterprise-level document management without software costs</li>
-                        <li style="margin-bottom: 10px;"><strong>Law Students:</strong> Learn proper document handling and exhibit preparation for future practice</li>
-                        <li style="margin-bottom: 10px;"><strong>Corporate Legal Departments:</strong> Maintain document control in internal investigations and litigation</li>
+                    <h3>Perfect For Legal Professionals</h3>
+                    <ul>
+                        <li><strong>Litigation Attorneys:</strong> Organize discovery documents, depositions, and trial exhibits with consistent Bates numbering</li>
+                        <li><strong>Paralegals:</strong> Quickly prepare document productions and respond to discovery requests</li>
+                        <li><strong>Legal Assistants:</strong> Manage case files and prepare exhibits for court filings</li>
+                        <li><strong>Solo Practitioners:</strong> Access enterprise-level document management without software costs</li>
+                        <li><strong>Law Students:</strong> Learn proper document handling and exhibit preparation for future practice</li>
+                        <li><strong>Corporate Legal Departments:</strong> Maintain document control in internal investigations and litigation</li>
                     </ul>
 
-                    <h3 style="color: #2c5282; margin-top: 35px; margin-bottom: 15px; font-size: 1.5rem;">Key Features</h3>
-                    <ul style="margin-left: 25px; color: #555;">
-                        <li style="margin-bottom: 8px;">Sequential Bates numbering with customizable prefix and suffix</li>
-                        <li style="margin-bottom: 8px;">Exhibit stamp creation (e.g., "EXHIBIT A", "EXHIBIT 1")</li>
-                        <li style="margin-bottom: 8px;">Multiple position options (top, bottom, left, right, center)</li>
-                        <li style="margin-bottom: 8px;">Custom text colors and font sizes</li>
-                        <li style="margin-bottom: 8px;">Configurable number padding (0001, 001, 01, etc.)</li>
-                        <li style="margin-bottom: 8px;">Optional Bates numbers - add exhibit stamps without numbering</li>
-                        <li style="margin-bottom: 8px;">Option to stamp first page only or all pages</li>
-                        <li style="margin-bottom: 8px;">Support for documents up to 100MB</li>
-                        <li style="margin-bottom: 8px;">Works on all devices - desktop, tablet, or mobile</li>
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li>Sequential Bates numbering with customizable prefix and suffix</li>
+                        <li>Exhibit stamp creation (e.g., "EXHIBIT A", "EXHIBIT 1")</li>
+                        <li>Multiple position options (top, bottom, left, right, center)</li>
+                        <li>Custom text colors and font sizes</li>
+                        <li>Configurable number padding (0001, 001, 01, etc.)</li>
+                        <li>Optional Bates numbers - add exhibit stamps without numbering</li>
+                        <li>Option to stamp first page only or all pages</li>
+                        <li>Support for documents up to 100MB</li>
+                        <li>Works on all devices - desktop, tablet, or mobile</li>
                     </ul>
 
-                    <h3 style="color: #2c5282; margin-top: 35px; margin-bottom: 15px; font-size: 1.5rem;">Privacy & Security</h3>
-                    <p style="margin-bottom: 15px;">We take your privacy seriously. Unlike other online PDF tools, your documents are never uploaded to any server. All Bates stamping and exhibit stamping is performed locally in your web browser using JavaScript and the pdf-lib library. This means:</p>
-                    <ul style="margin-left: 25px; margin-bottom: 20px; color: #555;">
-                        <li style="margin-bottom: 8px;">Your sensitive legal documents remain completely private</li>
-                        <li style="margin-bottom: 8px;">No data is transmitted over the internet</li>
-                        <li style="margin-bottom: 8px;">No files are stored on our servers (because we don't have servers!)</li>
-                        <li style="margin-bottom: 8px;">Works offline once the page is loaded</li>
-                        <li style="margin-bottom: 8px;">Complies with attorney-client privilege requirements</li>
+                    <h3>Privacy &amp; Security</h3>
+                    <p>We take your privacy seriously. Unlike other online PDF tools, your documents are never uploaded to any server. All Bates stamping and exhibit stamping is performed locally in your web browser using JavaScript and the pdf-lib library. This means:</p>
+                    <ul>
+                        <li>Your sensitive legal documents remain completely private</li>
+                        <li>No data is transmitted over the internet</li>
+                        <li>No files are stored on our servers (because we don't have servers!)</li>
+                        <li>Works offline once the page is loaded</li>
+                        <li>Complies with attorney-client privilege requirements</li>
                     </ul>
                 </div>
-            </div>
-        </div>
+            </section>
+        </main>
 
-        <div class="footer">
-            <div style="margin-bottom: 25px;">
-                <h3 style="color: #1e3a5f; margin-bottom: 10px;">Privacy & Security</h3>
-                <p style="margin-bottom: 10px;"><strong>© 2026 BatesStamp.com</strong> - Free Bates Stamping Tool</p>
-                <p style="margin-top: 10px; line-height: 1.6;">
-                    Your documents are processed locally in your browser using JavaScript. We never see, upload, or store your files on any server. 
+        <footer>
+            <div class="footer-privacy">
+                <h3>Privacy &amp; Security</h3>
+                <p><strong>&copy; 2026 BatesStamp.com</strong> - Free Bates Stamping Tool</p>
+                <p>
+                    Your documents are processed locally in your browser using JavaScript. We never see, upload, or store your files on any server.
                     This ensures complete confidentiality and attorney-client privilege protection. All processing happens on your device.
                 </p>
             </div>
-            
+
             <div class="footer-links">
                 <strong>Legal:</strong>
                 <a href="/privacy-policy.html">Privacy Policy</a>
@@ -778,38 +478,33 @@
                 <strong>More Free Legal Tools:</strong>
                 <a href="https://pfscalculator.com" target="_blank" rel="noopener noreferrer">Florida Proposal for Settlement Calculator</a>
             </div>
-            
-            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
-                <p style="font-size: 0.9rem; color: #666; line-height: 1.6;">
-                    <strong>Keywords:</strong> Bates stamping, Bates numbering, document numbering, legal document management, 
-                    exhibit stamps, PDF numbering, discovery documents, trial preparation, deposition exhibits, 
-                    free legal tools, attorney software, paralegal tools
-                </p>
-            </div>
-            
-            <div style="margin-top: 15px;">
-                <a href="https://www.buymeacoffee.com/ctibs" target="_blank" class="support-link">☕ Support This Project</a>
-            </div>
-        </div>
+
+        </footer>
     </div>
 
     <script>
         function toggleBatesOptions() {
             const checkbox = document.getElementById('addBates');
             const options = document.getElementById('batesOptions');
+            const appearance = document.getElementById('batesAppearance');
             options.style.display = checkbox.checked ? 'block' : 'none';
+            appearance.style.display = checkbox.checked ? '' : 'none';
         }
 
         function toggleExhibitOptions() {
             const checkbox = document.getElementById('addExhibit');
             const options = document.getElementById('exhibitOptions');
+            const appearance = document.getElementById('exhibitAppearance');
             options.style.display = checkbox.checked ? 'block' : 'none';
+            appearance.style.display = checkbox.checked ? '' : 'none';
         }
 
         function toggleConfidentialityOptions() {
             const checkbox = document.getElementById('addConfidentiality');
             const options = document.getElementById('confidentialityOptions');
+            const appearance = document.getElementById('confidentialityAppearance');
             options.style.display = checkbox.checked ? 'block' : 'none';
+            appearance.style.display = checkbox.checked ? '' : 'none';
         }
 
         function updateConfidentialityPreview() {
@@ -822,6 +517,7 @@
             const slider = document.getElementById('textOpacity');
             const display = document.getElementById('opacityDisplay');
             display.textContent = slider.value + '%';
+            slider.setAttribute('aria-valuenow', slider.value);
         }
 
         function hexToRgb(hex) {
@@ -831,6 +527,19 @@
                 g: parseInt(result[2], 16) / 255,
                 b: parseInt(result[3], 16) / 255
             } : { r: 0, g: 0, b: 0 };
+        }
+
+        function setStatus(message, type) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = '';
+            if (type) {
+                const span = document.createElement('span');
+                span.className = type;
+                span.textContent = message;
+                statusDiv.appendChild(span);
+            } else {
+                statusDiv.textContent = message;
+            }
         }
 
         async function stampPDF() {
@@ -845,50 +554,59 @@
             const textColor = document.getElementById('textColor').value;
             const addExhibit = document.getElementById('addExhibit').checked;
             const addConfidentiality = document.getElementById('addConfidentiality').checked;
-            const statusDiv = document.getElementById('status');
             const stampBtn = document.getElementById('stampBtn');
 
             // Validation
             if (!fileInput.files || !fileInput.files[0]) {
-                statusDiv.innerHTML = '<span class="error">Please select a PDF file first.</span>';
+                setStatus('Please select a PDF file first.', 'error');
                 return;
             }
 
             // Check file size
             const file = fileInput.files[0];
             const fileSizeMB = file.size / (1024 * 1024);
-            
+
             if (fileSizeMB > 100) {
-                statusDiv.innerHTML = '<span class="error">File too large for browser processing. Maximum file size is 100MB. Your file is ' + fileSizeMB.toFixed(1) + 'MB.</span>';
+                setStatus('File too large for browser processing. Maximum file size is 100MB. Your file is ' + fileSizeMB.toFixed(1) + 'MB.', 'error');
                 return;
             }
-            
+
             if (fileSizeMB > 50) {
-                statusDiv.innerHTML = '<span style="color: #ff9800;">⚠️ Large file detected (' + fileSizeMB.toFixed(1) + 'MB). Processing may take longer than usual...</span>';
+                setStatus('Large file detected (' + fileSizeMB.toFixed(1) + 'MB). Processing may take longer than usual...', 'warning');
             }
 
             // Check that at least one stamp type is selected
             if (!addBates && !addExhibit && !addConfidentiality) {
-                statusDiv.innerHTML = '<span class="error">Please select at least one stamp type (Bates Numbers, Exhibit Stamp, or Confidentiality Notice).</span>';
+                setStatus('Please select at least one stamp type (Bates Numbers, Exhibit Stamp, or Confidentiality Notice).', 'error');
                 return;
             }
 
             try {
                 // Disable button and show progress
                 stampBtn.disabled = true;
-                statusDiv.innerHTML = 'Processing PDF...';
+                setStatus('Processing PDF...');
 
                 // Read the PDF file
                 const arrayBuffer = await file.arrayBuffer();
-                
+
                 // Load the PDF with pdf-lib
-                const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
-                
+                let pdfDoc;
+                try {
+                    pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+                } catch (loadError) {
+                    if (loadError.message && loadError.message.includes('encrypt')) {
+                        setStatus('This PDF appears to be password-protected. Please remove the password protection and try again.', 'error');
+                    } else {
+                        setStatus('Unable to read this PDF file. It may be corrupted or in an unsupported format.', 'error');
+                    }
+                    return;
+                }
+
                 // Get all pages
                 const pages = pdfDoc.getPages();
                 const totalPages = pages.length;
-                
-                statusDiv.innerHTML = `Processing ${totalPages} page(s)...`;
+
+                setStatus('Processing ' + totalPages + ' page(s)...');
 
                 // Get opacity setting (convert from 0-100 to 0-1)
                 const textOpacity = parseInt(document.getElementById('textOpacity').value) / 100;
@@ -920,19 +638,19 @@
                 for (let i = 0; i < totalPages; i++) {
                     const page = pages[i];
                     const { width, height } = page.getSize();
-                    
+
                     // Add Bates number if enabled
                     if (addBates) {
                         // Calculate the Bates number for this page
                         const pageNumber = startNumber + i;
                         const paddedNumber = pageNumber.toString().padStart(padding, '0');
-                        const batesNumber = `${prefix}${paddedNumber}${suffix}`;
-                        
+                        const batesNumber = prefix + paddedNumber + suffix;
+
                         // Calculate position
                         let x, y;
-                        const margin = 30; // Small margin keeps stamps at edge, away from document content
-                        const batesWidth = batesNumber.length * fontSize * 0.6; // Approximate width
-                        
+                        const margin = 30;
+                        const batesWidth = batesNumber.length * fontSize * 0.6;
+
                         switch(position) {
                             case 'bottom-right':
                                 x = width - margin - batesWidth;
@@ -959,7 +677,7 @@
                                 y = height - margin - fontSize;
                                 break;
                         }
-                        
+
                         // Draw the Bates number
                         page.drawText(batesNumber, {
                             x: x,
@@ -974,19 +692,18 @@
                     if (addExhibit) {
                         const exhibitPages = document.getElementById('exhibitPages').value;
                         const shouldStampExhibit = exhibitPages === 'all' || (exhibitPages === 'first' && i === 0);
-                        
+
                         if (shouldStampExhibit) {
                             const exhibitLabel = document.getElementById('exhibitLabel').value;
                             const exhibitValue = document.getElementById('exhibitValue').value;
-                            const exhibitText = `${exhibitLabel} ${exhibitValue}`;
+                            const exhibitText = exhibitLabel + ' ' + exhibitValue;
                             const exhibitFontSize = parseInt(document.getElementById('exhibitFontSize').value);
                             const exhibitWidth = exhibitText.length * exhibitFontSize * 0.6;
                             const exhibitPosition = document.getElementById('exhibitPosition').value;
-                            
+
                             let exhibitX, exhibitY;
-                            const exhibitMargin = 30; // Small margin keeps stamps at edge
-                            
-                            // Calculate exhibit position
+                            const exhibitMargin = 30;
+
                             switch(exhibitPosition) {
                                 case 'bottom-center':
                                     exhibitX = (width - exhibitWidth) / 2;
@@ -1017,7 +734,7 @@
                                     exhibitY = (height - exhibitFontSize) / 2;
                                     break;
                             }
-                            
+
                             page.drawText(exhibitText, {
                                 x: exhibitX,
                                 y: exhibitY,
@@ -1032,25 +749,24 @@
                     if (addConfidentiality) {
                         const confidentialityPages = document.getElementById('confidentialityPages').value;
                         const shouldStampConfidentiality = confidentialityPages === 'all' || (confidentialityPages === 'first' && i === 0);
-                        
+
                         if (shouldStampConfidentiality) {
                             const confidentialitySelect = document.getElementById('confidentialityText').value;
                             let confidentialityText;
-                            
+
                             if (confidentialitySelect === 'custom') {
                                 confidentialityText = document.getElementById('customConfidentialityText').value || 'CONFIDENTIAL';
                             } else {
                                 confidentialityText = confidentialitySelect;
                             }
-                            
+
                             const confidentialityFontSize = parseInt(document.getElementById('confidentialityFontSize').value);
                             const confidentialityWidth = confidentialityText.length * confidentialityFontSize * 0.6;
                             const confidentialityPosition = document.getElementById('confidentialityPosition').value;
-                            
+
                             let confidentialityX, confidentialityY;
-                            const confidentialityMargin = 30; // Small margin keeps stamps at edge
-                            
-                            // Calculate confidentiality position
+                            const confidentialityMargin = 30;
+
                             switch(confidentialityPosition) {
                                 case 'top-center':
                                     confidentialityX = (width - confidentialityWidth) / 2;
@@ -1081,7 +797,7 @@
                                     confidentialityY = (height - confidentialityFontSize) / 2;
                                     break;
                             }
-                            
+
                             page.drawText(confidentialityText, {
                                 x: confidentialityX,
                                 y: confidentialityY,
@@ -1095,26 +811,26 @@
 
                 // Save the modified PDF
                 const pdfBytes = await pdfDoc.save();
-                
+
                 // Create a download link
                 const blob = new Blob([pdfBytes], { type: 'application/pdf' });
                 const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
                 link.href = url;
-                
+
                 // Generate filename
-                const originalName = file.name.replace('.pdf', '');
-                link.download = `${originalName}_stamped.pdf`;
+                const originalName = file.name.replace(/\.pdf$/i, '');
+                link.download = originalName + '_stamped.pdf';
                 link.click();
-                
-                // Clean up
-                URL.revokeObjectURL(url);
-                
-                statusDiv.innerHTML = `<span class="success">✓ Success! Stamped ${totalPages} page(s). Check your downloads.</span>`;
-                
+
+                // Clean up after download has started
+                setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+
+                setStatus('Success! Stamped ' + totalPages + ' page(s). Check your downloads.', 'success');
+
             } catch (error) {
                 console.error('Error:', error);
-                statusDiv.innerHTML = `<span class="error">Error: ${error.message}</span>`;
+                setStatus('An error occurred while processing the PDF. Please try a different file or check the browser console for details.', 'error');
             } finally {
                 stampBtn.disabled = false;
             }

@@ -13,6 +13,9 @@
       gtag('config', 'G-13354133605');
     </script>
 
+    <!-- Umami Analytics -->
+    <script defer src="https://umami.ctibs.app/script.js" data-website-id="b5a8938f-fd00-486c-bf17-0352963407f3"></script>
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -23,164 +26,31 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://batesstamp.com/terms-of-service.html">
 
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://batesstamp.com/terms-of-service.html">
+    <meta property="og:title" content="Terms of Service | BatesStamp.com">
+    <meta property="og:description" content="Terms of Service for BatesStamp.com - conditions of use for our free online Bates stamping tool.">
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:url" content="https://batesstamp.com/terms-of-service.html">
+    <meta property="twitter:title" content="Terms of Service | BatesStamp.com">
+    <meta property="twitter:description" content="Terms of Service for BatesStamp.com - conditions of use for our free online Bates stamping tool.">
+
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9125889511214710" crossorigin="anonymous"></script>
 
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #1a2332;
-            min-height: 100vh;
-            padding: 20px;
-            line-height: 1.6;
-            color: #333;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-            border-bottom: 3px solid #d4af37;
-        }
-
-        .header h1 { font-size: 2em; margin-bottom: 10px; }
-        .header p { font-size: 1.1em; opacity: 0.9; }
-
-        .nav-bar {
-            background: #2c5282;
-            padding: 10px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 0.9em;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: background 0.3s;
-        }
-
-        .nav-links a:hover { background: rgba(255,255,255,0.1); }
-
-        .support-link {
-            background: #d4af37;
-            color: #1a2332;
-            padding: 8px 16px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9em;
-            transition: transform 0.2s, box-shadow 0.2s;
-            display: inline-block;
-        }
-
-        .support-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(212,175,55,0.3);
-        }
-
-        .page-content { padding: 40px; }
-
-        .page-content h2 {
-            color: #1e3a5f;
-            font-size: 1.6rem;
-            margin-top: 35px;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #e0e0e0;
-        }
-
-        .page-content h3 {
-            color: #2c5282;
-            font-size: 1.1rem;
-            margin-top: 20px;
-            margin-bottom: 8px;
-        }
-
-        .page-content p { margin-bottom: 14px; color: #444; line-height: 1.8; }
-
-        .page-content ul { margin-left: 25px; margin-bottom: 14px; }
-
-        .page-content li { margin-bottom: 7px; color: #444; line-height: 1.7; }
-
-        .page-content a { color: #2c5282; }
-        .page-content a:hover { text-decoration: underline; }
-
-        .last-updated {
-            background: #f0f4f8;
-            border-left: 4px solid #2c5282;
-            padding: 12px 18px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            color: #555;
-            margin-bottom: 25px;
-        }
-
-        .important-notice {
-            background: #fff3cd;
-            border: 2px solid #ffc107;
-            border-radius: 8px;
-            padding: 18px 22px;
-            margin-bottom: 25px;
-        }
-
-        .important-notice p { color: #856404; margin-bottom: 0; font-weight: 500; }
-
-        .footer {
-            text-align: center;
-            padding: 20px;
-            color: #666;
-            font-size: 0.9em;
-            background: #f8f9fa;
-        }
-
-        .footer-links { margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd; }
-
-        .footer-links a {
-            color: #2c5282;
-            text-decoration: none;
-            margin: 0 10px;
-            font-weight: 500;
-        }
-
-        .footer-links a:hover { text-decoration: underline; }
-
-        @media (max-width: 768px) {
-            .page-content { padding: 20px; }
-            .header h1 { font-size: 1.6em; }
-            .nav-bar { flex-direction: column; align-items: flex-start; padding: 15px; }
-            .nav-links { width: 100%; flex-direction: column; gap: 10px; }
-            .support-link { width: 100%; text-align: center; }
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <div class="container">
-        <div class="header">
+        <header>
             <h1>Terms of Service</h1>
             <p>BatesStamp.com &mdash; Free Bates Stamping Tool</p>
-        </div>
+        </header>
 
-        <div class="nav-bar">
+        <nav aria-label="Main navigation">
             <div class="nav-links">
                 <a href="https://pfscalculator.com" target="_blank" rel="noopener noreferrer">PFS Calculator</a>
                 <a href="/">Home</a>
@@ -188,10 +58,9 @@
                 <a href="/privacy-policy.html">Privacy Policy</a>
                 <a href="/terms-of-service.html">Terms of Service</a>
             </div>
-            <a href="https://www.buymeacoffee.com/ctibs" target="_blank" rel="noopener noreferrer" class="support-link">&#9749; Buy Me a Coffee</a>
-        </div>
+        </nav>
 
-        <div class="page-content">
+        <main id="main-content" class="page-content">
             <div class="last-updated">Last updated: February 2026</div>
 
             <div class="important-notice">
@@ -272,9 +141,9 @@
             <h2>14. Contact</h2>
             <p>Questions about these Terms? Contact us via our <a href="/about.html#contact">About &amp; Contact page</a>.</p>
 
-        </div>
+        </main>
 
-        <div class="footer">
+        <footer>
             <div class="footer-links">
                 <strong>Legal:</strong>
                 <a href="/privacy-policy.html">Privacy Policy</a>
@@ -287,7 +156,7 @@
                 <a href="https://pfscalculator.com" target="_blank" rel="noopener noreferrer">Florida PFS Calculator</a>
             </div>
             <p style="margin-top: 15px;">&copy; 2026 BatesStamp.com &mdash; Free Bates Stamping Tool</p>
-        </div>
+        </footer>
     </div>
 </body>
 </html>
