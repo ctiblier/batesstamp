@@ -2,8 +2,6 @@
    BatesStamp.com - Consolidated Stylesheet
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
-
 /* ==========================================================================
    CSS Custom Properties
    ========================================================================== */
@@ -213,11 +211,6 @@ main {
     font-variant-numeric: tabular-nums;
 }
 
-.warning {
-    color: var(--warning);
-    font-weight: 500;
-}
-
 /* ==========================================================================
    6. Main content - subpages (.page-content)
    ========================================================================== */
@@ -325,6 +318,79 @@ input[type="color"] {
     color: var(--gray-400);
     margin-top: 6px;
     line-height: 1.5;
+}
+
+/* File upload drop zone */
+.file-drop-zone {
+    border: 2px dashed var(--gray-300);
+    border-radius: var(--radius-md);
+    padding: 32px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition);
+    background: var(--white);
+    position: relative;
+}
+
+.file-drop-zone:hover {
+    border-color: var(--navy-mid);
+    background: rgba(44, 82, 130, 0.03);
+}
+
+.file-drop-zone.drag-over {
+    border-color: var(--gold);
+    background: var(--gold-muted);
+    border-style: solid;
+}
+
+.file-drop-zone.has-file {
+    border-color: var(--success);
+    border-style: solid;
+    background: var(--success-bg);
+}
+
+.file-drop-zone input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+}
+
+.drop-zone-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    color: var(--gray-400);
+    transition: color var(--transition);
+    line-height: 1;
+}
+
+.file-drop-zone:hover .drop-zone-icon {
+    color: var(--navy-mid);
+}
+
+.file-drop-zone.has-file .drop-zone-icon {
+    color: var(--success);
+}
+
+.drop-zone-text {
+    font-size: 0.95em;
+    color: var(--gray-500);
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+.drop-zone-hint {
+    font-size: 0.82em;
+    color: var(--gray-400);
+}
+
+.drop-zone-filename {
+    font-size: 0.95em;
+    color: var(--success);
+    font-weight: 600;
+    margin-top: 4px;
 }
 
 .two-column {
@@ -503,6 +569,26 @@ input[type="color"] {
     justify-content: center;
 }
 
+.status.status-error {
+    background: var(--error-bg);
+    border-color: #fecaca;
+}
+
+.status.status-success {
+    background: var(--success-bg);
+    border-color: #bbf7d0;
+}
+
+.status.status-warning {
+    background: var(--warning-bg);
+    border-color: #fde68a;
+}
+
+.status.status-processing {
+    background: #eef6fd;
+    border-color: #bfdbfe;
+}
+
 .error {
     color: var(--error);
     font-weight: 500;
@@ -511,6 +597,34 @@ input[type="color"] {
 .success {
     color: var(--success);
     font-weight: 600;
+}
+
+.warning {
+    color: var(--warning);
+    font-weight: 500;
+}
+
+/* Loading spinner */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.spinner {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2.5px solid var(--gray-300);
+    border-top-color: var(--navy-mid);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.status-icon {
+    margin-right: 8px;
+    font-size: 1.1em;
+    vertical-align: middle;
 }
 
 /* ==========================================================================

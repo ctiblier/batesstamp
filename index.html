@@ -19,7 +19,10 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="#1e3a5f">
+    <link rel="manifest" href="/manifest.json">
 
     <!-- SEO Meta Tags -->
     <title>Free Bates Stamping Tool | Online PDF Document Numbering | BatesStamp.com</title>
@@ -36,12 +39,14 @@
     <meta property="og:url" content="https://batesstamp.com">
     <meta property="og:title" content="Free Bates Stamping Tool - Online PDF Document Numbering">
     <meta property="og:description" content="Add Bates numbers, exhibit stamps, and confidentiality notices to legal PDFs for free. Secure, client-side processing - your files never leave your device.">
+    <meta property="og:image" content="https://batesstamp.com/og-image.svg">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://batesstamp.com">
     <meta property="twitter:title" content="Free Bates Stamping Tool - Online PDF Document Numbering">
     <meta property="twitter:description" content="Add Bates numbers, exhibit stamps, and confidentiality notices to legal PDFs for free. Secure, client-side processing.">
+    <meta property="twitter:image" content="https://batesstamp.com/og-image.svg">
 
     <!-- Structured Data - JSON-LD -->
     <script type="application/ld+json">
@@ -108,6 +113,30 @@
             "@type": "Answer",
             "text": "Yes, you can add confidentiality notices like 'CONFIDENTIAL', 'ATTORNEY EYES ONLY', or custom text to your documents. The tool supports Bates numbers, exhibit stamps, and confidentiality notices simultaneously."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "What format should Bates numbers be?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bates numbers typically use a prefix followed by a zero-padded sequential number, such as 'SMITH_0001' or 'PLAINTIFF_000001'. Our tool lets you customize the prefix, suffix, starting number, and padding length to match your firm's conventions or court requirements."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this tool work with scanned PDFs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, BatesStamp.com works with both native and scanned PDF documents. The tool adds stamp text as an overlay on each page regardless of the underlying content. It supports files up to 100MB in size."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use this tool for federal court discovery productions?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, this tool produces Bates-numbered documents suitable for federal and state court discovery productions. You can customize the numbering format, position, and size to comply with your jurisdiction's requirements. Always verify stamped documents against applicable court rules before filing."
+          }
         }
       ]
     }
@@ -123,6 +152,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -166,9 +196,13 @@
             <div class="section">
                 <h2 class="section-title">1. Select Document</h2>
                 <div class="control-group">
-                    <label for="pdfFile">Choose PDF File:</label>
-                    <input type="file" id="pdfFile" accept=".pdf">
-                    <p class="info-text">Your document never leaves your browser. All processing is done locally. Maximum file size: 100MB.</p>
+                    <div class="file-drop-zone" id="dropZone">
+                        <input type="file" id="pdfFile" accept=".pdf" aria-label="Choose PDF file">
+                        <div class="drop-zone-icon" id="dropIcon">&#128196;</div>
+                        <div class="drop-zone-text" id="dropText">Choose a PDF file or drag it here</div>
+                        <div class="drop-zone-hint" id="dropHint">Your document never leaves your browser. Max 100MB.</div>
+                        <div class="drop-zone-filename" id="dropFilename" style="display:none;"></div>
+                    </div>
                 </div>
             </div>
 
@@ -483,6 +517,60 @@
     </div>
 
     <script>
+        // Drag-and-drop file upload
+        (function() {
+            var dropZone = document.getElementById('dropZone');
+            var fileInput = document.getElementById('pdfFile');
+            var dropIcon = document.getElementById('dropIcon');
+            var dropText = document.getElementById('dropText');
+            var dropHint = document.getElementById('dropHint');
+            var dropFilename = document.getElementById('dropFilename');
+
+            function updateFileDisplay() {
+                if (fileInput.files && fileInput.files[0]) {
+                    var name = fileInput.files[0].name;
+                    var sizeMB = (fileInput.files[0].size / (1024 * 1024)).toFixed(1);
+                    dropZone.classList.add('has-file');
+                    dropIcon.innerHTML = '&#9989;';
+                    dropText.textContent = name;
+                    dropHint.textContent = sizeMB + ' MB';
+                    dropFilename.style.display = 'none';
+                } else {
+                    dropZone.classList.remove('has-file');
+                    dropIcon.innerHTML = '&#128196;';
+                    dropText.textContent = 'Choose a PDF file or drag it here';
+                    dropHint.textContent = 'Your document never leaves your browser. Max 100MB.';
+                    dropFilename.style.display = 'none';
+                }
+            }
+
+            fileInput.addEventListener('change', updateFileDisplay);
+
+            ['dragenter', 'dragover'].forEach(function(evt) {
+                dropZone.addEventListener(evt, function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropZone.classList.add('drag-over');
+                });
+            });
+
+            ['dragleave', 'drop'].forEach(function(evt) {
+                dropZone.addEventListener(evt, function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropZone.classList.remove('drag-over');
+                });
+            });
+
+            dropZone.addEventListener('drop', function(e) {
+                var files = e.dataTransfer.files;
+                if (files.length > 0 && files[0].type === 'application/pdf') {
+                    fileInput.files = files;
+                    updateFileDisplay();
+                }
+            });
+        })();
+
         function toggleBatesOptions() {
             const checkbox = document.getElementById('addBates');
             const options = document.getElementById('batesOptions');
@@ -532,8 +620,17 @@
         function setStatus(message, type) {
             const statusDiv = document.getElementById('status');
             statusDiv.textContent = '';
-            if (type) {
-                const span = document.createElement('span');
+            statusDiv.className = 'status';
+            if (type === 'processing') {
+                statusDiv.classList.add('status-processing');
+                var spinner = document.createElement('span');
+                spinner.className = 'spinner';
+                statusDiv.appendChild(spinner);
+                var text = document.createTextNode(message);
+                statusDiv.appendChild(text);
+            } else if (type) {
+                statusDiv.classList.add('status-' + type);
+                var span = document.createElement('span');
                 span.className = type;
                 span.textContent = message;
                 statusDiv.appendChild(span);
@@ -572,7 +669,7 @@
             }
 
             if (fileSizeMB > 50) {
-                setStatus('Large file detected (' + fileSizeMB.toFixed(1) + 'MB). Processing may take longer than usual...', 'warning');
+                setStatus('Large file (' + fileSizeMB.toFixed(1) + 'MB) — processing may take longer than usual...', 'processing');
             }
 
             // Check that at least one stamp type is selected
@@ -584,7 +681,7 @@
             try {
                 // Disable button and show progress
                 stampBtn.disabled = true;
-                setStatus('Processing PDF...');
+                setStatus('Processing PDF...', 'processing');
 
                 // Read the PDF file
                 const arrayBuffer = await file.arrayBuffer();
@@ -606,7 +703,7 @@
                 const pages = pdfDoc.getPages();
                 const totalPages = pages.length;
 
-                setStatus('Processing ' + totalPages + ' page(s)...');
+                setStatus('Processing ' + totalPages + ' page(s)...', 'processing');
 
                 // Get opacity setting (convert from 0-100 to 0-1)
                 const textOpacity = parseInt(document.getElementById('textOpacity').value) / 100;
@@ -826,7 +923,7 @@
                 // Clean up after download has started
                 setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
 
-                setStatus('Success! Stamped ' + totalPages + ' page(s). Check your downloads.', 'success');
+                setStatus('Stamped ' + totalPages + ' page(s) — saved as ' + originalName + '_stamped.pdf', 'success');
 
             } catch (error) {
                 console.error('Error:', error);
