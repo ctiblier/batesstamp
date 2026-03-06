@@ -359,11 +359,12 @@ input[type="color"] {
 }
 
 .drop-zone-icon {
-    font-size: 2rem;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     color: var(--gray-400);
     transition: color var(--transition);
     line-height: 1;
+    display: flex;
+    justify-content: center;
 }
 
 .file-drop-zone:hover .drop-zone-icon {
@@ -891,14 +892,61 @@ input[type="color"] {
    ========================================================================== */
 
 footer {
-    text-align: center;
-    padding: 32px 40px;
     color: var(--gray-500);
     font-size: 0.88em;
     background: var(--off-white);
     border-top: 1px solid var(--gray-200);
 }
 
+.footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 32px;
+    padding: 36px 40px;
+    text-align: left;
+}
+
+.footer-col h4 {
+    font-family: var(--font-body);
+    font-size: 0.82em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--navy);
+    margin-bottom: 12px;
+}
+
+.footer-col p {
+    color: var(--gray-500);
+    line-height: 1.7;
+    font-size: 0.95em;
+}
+
+.footer-col a {
+    display: block;
+    color: var(--gray-600);
+    text-decoration: none;
+    padding: 3px 0;
+    font-weight: 400;
+    transition: color var(--transition);
+}
+
+.footer-col a:hover {
+    color: var(--navy-mid);
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--gray-200);
+    padding: 16px 40px;
+    text-align: center;
+}
+
+.footer-bottom p {
+    color: var(--gray-400);
+    font-size: 0.88em;
+}
+
+/* Subpage footer (simpler layout) */
 .footer-links {
     margin-top: 16px;
     padding-top: 16px;
@@ -924,24 +972,6 @@ footer {
     text-decoration: underline;
     text-decoration-color: rgba(44, 82, 130, 0.3);
     text-underline-offset: 2px;
-}
-
-.footer-privacy {
-    margin-bottom: 24px;
-}
-
-.footer-privacy h3 {
-    font-family: var(--font-display);
-    color: var(--navy);
-    margin-bottom: 8px;
-    font-size: 1.15em;
-    font-weight: 600;
-}
-
-.footer-privacy p {
-    margin-bottom: 8px;
-    line-height: 1.6;
-    color: var(--gray-600);
 }
 
 /* ==========================================================================
@@ -1025,6 +1055,17 @@ footer {
 
     footer {
         padding: 24px 20px;
+    }
+
+    .footer-top {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 24px 20px;
+        text-align: center;
+    }
+
+    .footer-bottom {
+        padding: 12px 20px;
     }
 
     .feature-highlights {

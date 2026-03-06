@@ -160,7 +160,7 @@
 
     <div class="container">
         <header>
-            <h1>Free Bates Stamping Tool - Add Bates Numbers to PDFs Online</h1>
+            <h1>Free Bates Stamping Tool<br>Add Bates Numbers to PDFs Online</h1>
             <p>Secure, client-side document numbering for legal professionals</p>
         </header>
 
@@ -198,10 +198,11 @@
                 <div class="control-group">
                     <div class="file-drop-zone" id="dropZone">
                         <input type="file" id="pdfFile" accept=".pdf" aria-label="Choose PDF file">
-                        <div class="drop-zone-icon" id="dropIcon">&#128196;</div>
+                        <div class="drop-zone-icon" id="dropIcon">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 12 15 15"/></svg>
+                        </div>
                         <div class="drop-zone-text" id="dropText">Choose a PDF file or drag it here</div>
                         <div class="drop-zone-hint" id="dropHint">Your document never leaves your browser. Max 100MB.</div>
-                        <div class="drop-zone-filename" id="dropFilename" style="display:none;"></div>
                     </div>
                 </div>
             </div>
@@ -493,26 +494,26 @@
         </main>
 
         <footer>
-            <div class="footer-privacy">
-                <h3>Privacy &amp; Security</h3>
-                <p><strong>&copy; 2026 BatesStamp.com</strong> - Free Bates Stamping Tool</p>
-                <p>
-                    Your documents are processed locally in your browser using JavaScript. We never see, upload, or store your files on any server.
-                    This ensures complete confidentiality and attorney-client privilege protection. All processing happens on your device.
-                </p>
+            <div class="footer-top">
+                <div class="footer-col">
+                    <h4>BatesStamp.com</h4>
+                    <p>Free, secure Bates stamping for legal professionals. Your documents are processed entirely in your browser — we never see, upload, or store your files.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Pages</h4>
+                    <a href="/">Home</a>
+                    <a href="/about.html">About &amp; Contact</a>
+                    <a href="/privacy-policy.html">Privacy Policy</a>
+                    <a href="/terms-of-service.html">Terms of Service</a>
+                </div>
+                <div class="footer-col">
+                    <h4>More Tools</h4>
+                    <a href="https://pfscalculator.com" target="_blank" rel="noopener noreferrer">Florida PFS Calculator</a>
+                </div>
             </div>
-
-            <div class="footer-links">
-                <strong>Legal:</strong>
-                <a href="/privacy-policy.html">Privacy Policy</a>
-                <a href="/terms-of-service.html">Terms of Service</a>
-                <a href="/about.html">About &amp; Contact</a>
+            <div class="footer-bottom">
+                <p>&copy; 2026 BatesStamp.com. All processing happens on your device.</p>
             </div>
-            <div class="footer-links" style="margin-top: 10px;">
-                <strong>More Free Legal Tools:</strong>
-                <a href="https://pfscalculator.com" target="_blank" rel="noopener noreferrer">Florida Proposal for Settlement Calculator</a>
-            </div>
-
         </footer>
     </div>
 
@@ -524,23 +525,22 @@
             var dropIcon = document.getElementById('dropIcon');
             var dropText = document.getElementById('dropText');
             var dropHint = document.getElementById('dropHint');
-            var dropFilename = document.getElementById('dropFilename');
+            var uploadSvg = '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 12 15 15"/></svg>';
+            var checkSvg = '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
 
             function updateFileDisplay() {
                 if (fileInput.files && fileInput.files[0]) {
                     var name = fileInput.files[0].name;
                     var sizeMB = (fileInput.files[0].size / (1024 * 1024)).toFixed(1);
                     dropZone.classList.add('has-file');
-                    dropIcon.innerHTML = '&#9989;';
+                    dropIcon.innerHTML = checkSvg;
                     dropText.textContent = name;
                     dropHint.textContent = sizeMB + ' MB';
-                    dropFilename.style.display = 'none';
                 } else {
                     dropZone.classList.remove('has-file');
-                    dropIcon.innerHTML = '&#128196;';
+                    dropIcon.innerHTML = uploadSvg;
                     dropText.textContent = 'Choose a PDF file or drag it here';
                     dropHint.textContent = 'Your document never leaves your browser. Max 100MB.';
-                    dropFilename.style.display = 'none';
                 }
             }
 
